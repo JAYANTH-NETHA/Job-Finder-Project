@@ -1,41 +1,154 @@
 .post-job-page {
   min-height: 100vh;
-  padding: 55px 20px 80px;
   background:
-    radial-gradient(circle at 85% 0%, #eff6ff, transparent 32%),
-    #f8fafc;
+    radial-gradient(circle at top right, rgba(37, 99, 235, 0.08), transparent 30%),
+    #f7f9fc;
+  color: #0f172a;
 }
 
 .post-job-container {
-  max-width: 900px;
+  width: min(1100px, 92%);
   margin: 0 auto;
+  padding: 48px 0 70px;
+}
+
+.post-job-card {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #e2e8f0;
+  border-radius: 22px;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+  padding: 42px;
+  animation: postJobFadeUp 0.5s ease;
 }
 
 .post-job-header {
-  margin-bottom: 30px;
-  animation: postAppear 0.5s ease;
+  margin-bottom: 34px;
 }
 
-.post-job-header span {
+.post-job-eyebrow {
+  display: inline-block;
+  margin-bottom: 10px;
   color: #2563eb;
-  font-size: 10px;
+  font-size: 0.78rem;
   font-weight: 800;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .post-job-header h1 {
-  margin: 8px 0;
-  color: #0f172a;
-  font-size: 38px;
-  letter-spacing: -1px;
+  margin: 0 0 10px;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  letter-spacing: -0.04em;
 }
 
 .post-job-header p {
   margin: 0;
   color: #64748b;
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
-@keyframes postAppear {
+.post-job-form {
+  width: 100%;
+}
+
+.job-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.form-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-field label {
+  color: #334155;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  border: 1px solid #dbe2ea;
+  border-radius: 13px;
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 14px 16px;
+  font: inherit;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 150px;
+  line-height: 1.6;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #94a3b8;
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  border-color: #2563eb;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.post-job-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 34px;
+  padding-top: 28px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.primary-btn,
+.secondary-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 13px 22px;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.2);
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.28);
+}
+
+.secondary-btn {
+  background: #eef2f7;
+  color: #334155;
+}
+
+.secondary-btn:hover {
+  background: #e2e8f0;
+  transform: translateY(-2px);
+}
+
+@keyframes postJobFadeUp {
   from {
     opacity: 0;
     transform: translateY(18px);
@@ -47,124 +160,31 @@
   }
 }
 
-.post-job-form {
-  padding: 35px;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 22px;
-  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.07);
-}
-
-.post-job-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 21px;
-}
-
-.post-field {
-  display: flex;
-  flex-direction: column;
-}
-
-.post-field.full {
-  grid-column: 1 / -1;
-}
-
-.post-field label {
-  margin-bottom: 8px;
-  color: #334155;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.post-field input,
-.post-field textarea,
-.post-field select {
-  width: 100%;
-  padding: 13px 15px;
-  border: 1px solid #cbd5e1;
-  border-radius: 11px;
-  background: #ffffff;
-  color: #0f172a;
-  font-family: inherit;
-  font-size: 14px;
-  outline: none;
-  transition: 0.25s ease;
-}
-
-.post-field textarea {
-  min-height: 150px;
-  resize: vertical;
-}
-
-.post-field input:focus,
-.post-field textarea:focus,
-.post-field select:focus {
-  border-color: #60a5fa;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.09);
-}
-
-.post-job-actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 30px;
-}
-
-.post-job-actions button {
-  flex: 1;
-  border-radius: 11px;
-  padding: 13px 18px;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.25s ease;
-}
-
-.post-job-actions button:first-child {
-  border: none;
-  background: #2563eb;
-  color: #ffffff;
-}
-
-.post-job-actions button:first-child:hover {
-  background: #1d4ed8;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.2);
-}
-
-.post-job-actions button:first-child:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.post-job-actions button:last-child {
-  border: 1px solid #cbd5e1;
-  background: #f8fafc;
-  color: #475569;
-}
-
-.post-job-actions button:last-child:hover {
-  background: #f1f5f9;
-}
-
-@media (max-width: 650px) {
-  .post-job-page {
-    padding: 35px 15px 60px;
+@media (max-width: 700px) {
+  .post-job-container {
+    width: 94%;
+    padding: 28px 0 50px;
   }
 
-  .post-job-form {
-    padding: 24px 19px;
+  .post-job-card {
+    padding: 25px 20px;
+    border-radius: 18px;
   }
 
-  .post-job-grid {
+  .job-form-grid {
     grid-template-columns: 1fr;
   }
 
-  .post-field.full {
+  .form-field.full-width {
     grid-column: auto;
   }
 
   .post-job-actions {
-    flex-direction: column;
+    flex-direction: column-reverse;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
   }
 }

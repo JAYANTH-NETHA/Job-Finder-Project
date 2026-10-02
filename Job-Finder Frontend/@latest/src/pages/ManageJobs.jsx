@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 import "../components/ManageJobs.css";
 
 function ManageJobs() {
@@ -10,7 +11,13 @@ function ManageJobs() {
 
   useEffect(() => {
     fetch("http://localhost:8080/jobs")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch jobs");
+        }
+
+        return response.json();
+      })
       .then((data) => {
         setJobs(data);
         setLoading(false);
@@ -39,20 +46,15 @@ function ManageJobs() {
       );
 
       if (response.ok) {
-        alert("Job deleted successfully");
-
-        setJobs(
-          jobs.filter(
+        setJobs((currentJobs) =>
+          currentJobs.filter(
             (job) => job.job_id !== jobId
           )
         );
-      } else {
-        const data = await response.json();
 
-        alert(
-          data.message ||
-          "Failed to delete job"
-        );
+        alert("Job deleted successfully");
+      } else {
+        alert("Failed to delete job");
       }
     } catch (error) {
       console.error(error);
@@ -60,93 +62,139 @@ function ManageJobs() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="manage-loading">
-        <div className="manage-spinner"></div>
-        <h2>Loading jobs...</h2>
-      </div>
-    );
-  }
-
   return (
-    <div className="manage-page">
-      <main className="manage-container">
-        <div className="manage-header">
+    <div className="manage-jobs-page">
+      <Navbar />
+
+      <main className="manage-jobs-container">
+
+        <header className="manage-jobs-header">
           <div>
-            <span>RECRUITER PANEL</span>
+            <span className="manage-jobs-eyebrow">
+              Recruiter Portal
+            </span>
+
             <h1>Manage Jobs</h1>
+
             <p>
-              Review, edit and manage your job postings.
+              View, update and manage the jobs you have posted.
             </p>
           </div>
 
           <button
-            className="manage-back-btn"
-            onClick={() =>
-              navigate("/recruiter")
-            }
+            className="post-new-job-btn"
+            onClick={() => navigate("/post-job")}
           >
-            ← Dashboard
+            + Post New Job
+          </button>
+        </header>
+
+        <div className="manage-jobs-toolbar">
+          <span>
+            {jobs.length} {jobs.length === 1 ? "Job" : "Jobs"} Posted
+          </span>
+
+          <button
+            className="dashboard-btn"
+            onClick={() => navigate("/recruiter")}
+          >
+            Back to Dashboard
           </button>
         </div>
 
-        {jobs.length === 0 ? (
-          <div className="manage-empty">
-            <h2>No jobs found</h2>
+        {loading ? (
+          <div className="manage-jobs-list">
+            {[1, 2, 3].map((item) => (
+              <div
+                className="manage-job-card skeleton-job"
+                key={item}
+              >
+                <div className="skeleton-title"></div>
+                <div className="skeleton-line"></div>
+                <div className="skeleton-line short"></div>
+              </div>
+            ))}
+          </div>
+        ) : jobs.length === 0 ? (
+          <div className="manage-empty-state">
+            <div className="empty-icon">+</div>
+
+            <h2>No Jobs Posted Yet</h2>
+
             <p>
-              You haven't posted any jobs yet.
+              Create your first job posting to start receiving
+              applications from candidates.
             </p>
 
             <button
-              onClick={() =>
-                navigate("/post-job")
-              }
+              className="post-new-job-btn"
+              onClick={() => navigate("/post-job")}
             >
-              Post New Job
+              Post Your First Job
             </button>
           </div>
         ) : (
-          <div className="manage-jobs-grid">
+          <div className="manage-jobs-list">
             {jobs.map((job) => (
               <article
                 className="manage-job-card"
                 key={job.job_id}
               >
-                <div className="manage-job-header">
-                  <div>
-                    <span className="manage-job-id">
-                      JOB #{job.job_id}
-                    </span>
+                <div className="manage-job-info">
 
-                    <h2>{job.job_title}</h2>
+                  <div className="manage-job-title-row">
+                    <div>
+                      <span className="job-id">
+                        JOB #{job.job_id}
+                      </span>
+
+                      <h2>{job.job_title}</h2>
+                    </div>
+
+                    <span className="job-type-badge">
+                      {job.job_type}
+                    </span>
                   </div>
 
-                  <span className="manage-job-type">
-                    {job.job_type}
-                  </span>
-                </div>
+                  <div className="manage-job-details">
+                    <div>
+                      <span className="detail-label">
+                        Location
+                      </span>
+                      <strong>{job.job_location}</strong>
+                    </div>
 
-                <div className="manage-job-info">
-                  <p>
-                    <strong>Location</strong>
-                    {job.job_location}
-                  </p>
+                    <div>
+                      <span className="detail-label">
+                        Salary
+                      </span>
+                      <strong>{job.job_salary}</strong>
+                    </div>
 
-                  <p>
-                    <strong>Salary</strong>
-                    {job.job_salary}
-                  </p>
+                    <div>
+                      <span className="detail-label">
+                        Experience
+                      </span>
+                      <strong>{job.job_experience}</strong>
+                    </div>
+                  </div>
 
-                  <p>
-                    <strong>Experience</strong>
-                    {job.job_experience}
-                  </p>
                 </div>
 
                 <div className="manage-job-actions">
                   <button
-                    className="manage-edit-btn"
+                    className="view-applicants-btn"
+                    onClick={() =>
+                      navigate(
+                        `/job-applicants/${job.job_id}`
+                      )
+                    }
+                  >
+                    View Applicants
+                  </button>
+
+                  <button
+                    className="edit-job-btn"
                     onClick={() =>
                       navigate(
                         `/edit-job/${job.job_id}`
@@ -157,29 +205,19 @@ function ManageJobs() {
                   </button>
 
                   <button
-                    className="manage-delete-btn"
+                    className="delete-job-btn"
                     onClick={() =>
                       handleDelete(job.job_id)
                     }
                   >
                     Delete
                   </button>
-
-                  <button
-                    className="manage-applicants-btn"
-                    onClick={() =>
-                      navigate(
-                        `/job-applicants/${job.job_id}`
-                      )
-                    }
-                  >
-                    Applicants
-                  </button>
                 </div>
               </article>
             ))}
           </div>
         )}
+
       </main>
     </div>
   );

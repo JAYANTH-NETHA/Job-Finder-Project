@@ -4,128 +4,58 @@ import Navbar from "../components/Navbar";
 import "../components/RecruiterDashboard.css";
 
 function RecruiterDashboard() {
-
   const navigate = useNavigate();
-
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
-
     if (!user) {
       navigate("/");
       return;
     }
 
-    if (
-      String(user.user_role).trim().toUpperCase() !==
-      "RECRUITER"
-    ) {
+    if (String(user.user_role).trim().toUpperCase() !== "RECRUITER") {
       navigate("/home");
       return;
     }
 
-
     fetch("http://localhost:8080/jobs")
       .then((response) => response.json())
       .then((data) => {
-
         setJobs(data);
         setLoading(false);
-
       })
       .catch((error) => {
-
         console.error(error);
         setLoading(false);
-
       });
-
   }, []);
 
-
   return (
-
-    <div>
-
+    <div className="dashboard-container">
       <Navbar />
 
-      <h1>Recruiter Dashboard</h1>
+      <h1 className="dashboard-title">Recruiter Dashboard</h1>
+      <p className="dashboard-welcome">Welcome, {user?.user_name}</p>
 
-      <p>
-        Welcome, {user?.user_name}
-      </p>
-
-
-      {/* Recruiter Actions */}
-
-      <div>
-
-        <button
-          onClick={() => navigate("/company")}
-        >
-          Company
-        </button>
-
-        {" "}
-
-        <button
-          onClick={() => navigate("/post-job")}
-        >
-          Post New Job
-        </button>
-
-        {" "}
-
-        <button
-          onClick={() => navigate("/manage-jobs")}
-        >
-          Manage Jobs
-        </button>
-
-      </div>
-
-
-      <h2>Available Jobs</h2>
-
+      <h2 className="dashboard-section-title">Available Jobs</h2>
 
       {loading ? (
-
-        <p>Loading jobs...</p>
-
+        <p className="dashboard-status">Loading jobs...</p>
       ) : jobs.length === 0 ? (
-
-        <p>No jobs found.</p>
-
+        <p className="dashboard-status">No jobs found.</p>
       ) : (
-
         jobs.map((job) => (
-
-          <div key={job.job_id}>
-
-            <h3>
-              {job.job_title}
-            </h3>
-
-            <p>
-              {job.job_location}
-            </p>
-
-            <p>
-              {job.job_type}
-            </p>
-
+          <div key={job.job_id} className="job-card">
+            <h3>{job.job_title}</h3>
+            <p>{job.job_location}</p>
+            <p>{job.job_type}</p>
           </div>
-
         ))
-
       )}
-
     </div>
-
   );
 }
 
