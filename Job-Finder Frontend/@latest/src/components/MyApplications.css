@@ -1,0 +1,224 @@
+.applications-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 0%, #eff6ff, transparent 32%),
+    #f8fafc;
+}
+
+.applications-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 55px 20px 80px;
+}
+
+.applications-header {
+  margin-bottom: 32px;
+  animation: applicationsAppear 0.5s ease;
+}
+
+.applications-header span {
+  color: #2563eb;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.applications-header h1 {
+  margin: 8px 0;
+  color: #0f172a;
+  font-size: 38px;
+  letter-spacing: -1px;
+}
+
+.applications-header p {
+  margin: 0;
+  color: #64748b;
+}
+
+@keyframes applicationsAppear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.application-card {
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(15, 23, 42, 0.05);
+  transition: 0.3s ease;
+}
+
+.application-card:hover {
+  transform: translateY(-4px);
+  border-color: #bfdbfe;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.application-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.application-card-header span {
+  color: #2563eb;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.application-card-header h2 {
+  margin: 6px 0 0;
+  color: #0f172a;
+  font-size: 18px;
+}
+
+.application-status {
+  padding: 7px 10px;
+  border-radius: 20px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.application-status.selected {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.application-status.rejected {
+  background: #fff1f2;
+  color: #dc2626;
+}
+
+.application-status.shortlisted,
+.application-status.interview {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.application-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding-top: 20px;
+}
+
+.application-info div {
+  padding: 14px;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.application-info span {
+  display: block;
+  margin-bottom: 6px;
+  color: #94a3b8;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.application-info strong,
+.application-info a {
+  color: #334155;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.application-info a {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.application-info a:hover {
+  text-decoration: underline;
+}
+
+.applications-empty {
+  padding: 70px 20px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 20px;
+}
+
+.empty-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.applications-empty h2 {
+  margin: 0 0 7px;
+  color: #334155;
+}
+
+.applications-empty p {
+  margin: 0;
+  color: #94a3b8;
+}
+
+.applications-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+}
+
+.applications-loading h2 {
+  color: #475569;
+  font-size: 16px;
+}
+
+.applications-spinner {
+  width: 38px;
+  height: 38px;
+  border: 4px solid #dbeafe;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: applicationsSpin 0.8s linear infinite;
+}
+
+@keyframes applicationsSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .applications-container {
+    padding: 35px 15px 60px;
+  }
+
+  .applications-header h1 {
+    font-size: 30px;
+  }
+
+  .applications-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .application-info {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,364 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background:
+    radial-gradient(
+      circle at 8% 15%,
+      rgba(59, 130, 246, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 92% 80%,
+      rgba(147, 197, 253, 0.1),
+      transparent 30%
+    ),
+    #f8f7f3;
+}
+
+body > #root {
+  min-height: 100vh;
+}
+
+#root > div {
+  min-height: 100vh;
+  padding-bottom: 70px;
+  animation: dashboardPageEnter 0.7s ease both;
+}
+
+@keyframes dashboardPageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#root > div > h1 {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 65px 25px 8px;
+
+  color: #1e293b;
+
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -1.2px;
+
+  animation: titleAppear 0.7s ease both;
+}
+
+@keyframes titleAppear {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#root > div > h1 + p {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 25px 28px;
+
+  color: #64748b;
+  font-size: 15px;
+
+  animation: subtitleAppear 0.7s ease 0.1s both;
+}
+
+@keyframes subtitleAppear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#root > div > h1 + p + div {
+  max-width: 1200px;
+  margin: 0 auto 45px;
+  padding: 22px 25px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+
+  box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.05),
+    0 3px 8px rgba(15, 23, 42, 0.03);
+
+  animation: actionsAppear 0.7s ease 0.15s both;
+}
+
+@keyframes actionsAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#root > div > h1 + p + div button {
+  position: relative;
+
+  min-width: 130px;
+  height: 45px;
+
+  padding: 0 20px;
+
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+
+  background: #eff6ff;
+  color: #2563eb;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+  overflow: hidden;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+#root > div > h1 + p + div button::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  transform: skewX(-20deg);
+
+  transition: left 0.45s ease;
+}
+
+#root > div > h1 + p + div button:hover::before {
+  left: 120%;
+}
+
+#root > div > h1 + p + div button:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 10px 22px rgba(37, 99, 235, 0.2);
+}
+
+#root > div > h1 + p + div button:active {
+  transform: translateY(0);
+}
+
+#root > div > h1 + p + div + h2 {
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  padding: 0 25px 22px;
+
+  color: #1e293b;
+
+  font-size: 25px;
+  font-weight: 800;
+
+  letter-spacing: -0.5px;
+}
+
+#root > div > h1 + p + div + h2 + p {
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  padding: 25px;
+
+  color: #64748b;
+
+  font-size: 15px;
+}
+
+#root > div > h1 + p + div + h2 ~ div {
+  max-width: 1200px;
+
+  margin: 0 auto 16px;
+
+  padding: 22px 25px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+
+  box-shadow:
+    0 7px 22px rgba(15, 23, 42, 0.04);
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  animation: jobCardAppear 0.55s ease both;
+}
+
+#root > div > h1 + p + div + h2 ~ div:hover {
+  transform: translateY(-5px);
+
+  border-color: #bfdbfe;
+
+  box-shadow:
+    0 16px 32px rgba(37, 99, 235, 0.09);
+}
+
+@keyframes jobCardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+#root > div > h1 + p + div + h2 ~ div h3 {
+  margin: 0 0 12px;
+
+  color: #1e293b;
+
+  font-size: 18px;
+  font-weight: 750;
+
+  transition: color 0.25s ease;
+}
+
+#root > div > h1 + p + div + h2 ~ div:hover h3 {
+  color: #2563eb;
+}
+
+#root > div > h1 + p + div + h2 ~ div p {
+  display: inline-flex;
+
+  margin: 0 8px 0 0;
+  padding: 6px 11px;
+
+  border-radius: 999px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  color: #64748b;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+#root > div > h1 + p + div + h2 ~ div p:last-of-type {
+  background: #eff6ff;
+
+  border-color: #dbeafe;
+
+  color: #2563eb;
+}
+
+@media (max-width: 900px) {
+  #root > div > h1 {
+    padding-top: 50px;
+  }
+
+  #root > div > h1 + p + div {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  #root > div > h1 + p + div + h2 {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #root > div > h1 + p + div + h2 ~ div {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  #root > div > h1 {
+    padding: 40px 18px 8px;
+    font-size: 30px;
+  }
+
+  #root > div > h1 + p {
+    padding: 0 18px 25px;
+  }
+
+  #root > div > h1 + p + div {
+    margin-left: 18px;
+    margin-right: 18px;
+    padding: 17px;
+
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #root > div > h1 + p + div button {
+    width: 100%;
+  }
+
+  #root > div > h1 + p + div + h2 {
+    padding: 0 18px 18px;
+    font-size: 22px;
+  }
+
+  #root > div > h1 + p + div + h2 ~ div {
+    margin-left: 18px;
+    margin-right: 18px;
+    padding: 20px;
+  }
+}
